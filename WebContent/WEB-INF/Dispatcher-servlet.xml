@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:context="http://www.springframework.org/schema/context"
+xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd 
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<context:annotation-config/>
+	
+	
+	<!-- 
+		스프링환경에서 fileUpload시 반드시 선언해야 하는 빈객체
+		id가 무조건 multipartResolver이어야 한다.
+	 -->
+	 <bean id="multipartResolver"
+	  class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	 	<property name="defaultEncoding" value="utf-8"/>
+	 	<property name="maxUploadSize" value="-1"/> 
+	 </bean>
+	
+
+	
+	<!-- 스프링 bbs를 위한 bean -->
+	
+	<bean name="/bbs/list.inc" class="spring.control.ListControl">
+		<property name="bdao" ref="bdao"/>	
+	</bean>
+	<bean name="/bbs/write.inc" class="spring.control.WriteControl">
+		<property name="bdao" ref="bdao"></property>
+	</bean>
+	
+	<bean name="/bbs/view.inc" class="spring.control.ViewControl">
+		<property name="bdao" ref="bdao"/>	
+	</bean>
+	
+		<bean name="/bbs/modify.inc" class="spring.control.ModifyControl">
+		<property name="bdao" ref="bdao"/>	
+	</bean>
+	
+	
+	<!-- View Resolver선언 -->
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/"/>
+		<property name="suffix" value=".jsp"/>
+	</bean>
+	
+</beans>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

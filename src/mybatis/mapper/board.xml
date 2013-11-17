@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="board">
+
+
+
+<update id="uphit" parameterType="java.util.Map">
+
+update board2 set hit=#{hit} where seq=#{seq} 
+</update>
+
+
+	<select id="list" parameterType="java.util.Map" resultType="mybatis.vo.BoardVO">
+		select * from board2 where status=#{c} order by seq desc limit
+		#{a},#{b}
+
+	</select>
+
+	<select id="total" parameterType="int" resultType="mybatis.vo.BoardVO">
+		select * from
+		board2 where status=#{s}
+	</select>
+  
+  <select id="view" parameterType="int" resultType="mybatis.vo.BoardVO">
+		select * from board2 where seq=#{seq}
+	</select>
+  
+  
+  	<insert id="write" parameterType="mybatis.vo.BoardVO">
+	insert into board2(writer,title,content,pwd,hit,bname,
+	regdate,ip,status,uploadFilename,path)
+		values(#{writer},#{title},#{content},#{pwd},#{hit},#{bname},
+	#{regdate},#{ip},#{status},#{uploadFilename},#{path})
+
+	</insert>
+
+ <update id="modify" parameterType="mybatis.vo.BoardVO">
+	update board2 set writer=#{writer}, title=#{title},content=#{content}, pwd=#{pwd} where seq=#{seq}
+ </update>
+	
+		<update id="delete" parameterType="java.util.Map">
+	
+	update board set status=#{b} where status=#{a} and seq=#{c}
+	</update>
+	
+	
+
+</mapper>
